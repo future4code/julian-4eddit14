@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components'
 
@@ -13,11 +13,16 @@ const Container = styled.div`
 function FeedPage() {
     const history = useHistory()
 
+    useEffect(() => {
+        localStorage.getItem('token') === null && history.push('/')
+    })
+
     const goToPost = () => {
         history.push('/post')
     }
 
     const goToLogin = () => {
+        localStorage.clear()
         history.push('/')
     }
 

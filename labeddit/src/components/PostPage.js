@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components'
 
@@ -13,19 +13,24 @@ const Container = styled.div`
 function PostPage() {
     const history = useHistory()
 
+    useEffect(() => {
+        localStorage.getItem('token') === null && history.push('/')
+    })
+    
     const goToPost = () => {
         history.push('/feed')
     }
 
     const goToLogin = () => {
+        localStorage.clear()
         history.push('/')
     }
 
     return (
         <Container>
             <h2>Post</h2>
-            <button onClick={goToPost}>Voltar para Feed</button>
-            <button onClick={goToLogin}>Sair</button>
+            <button onClick={goToPost}>VOLTAR PARA FEED</button>
+            <button onClick={goToLogin}>SAIR</button>
         </Container>
     );
 }
