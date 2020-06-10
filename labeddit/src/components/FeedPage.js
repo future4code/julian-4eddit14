@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { useForm } from './Hooks/useForm'
 import styled from 'styled-components';
 import axios from 'axios'
+import ArrowUpward from '@material-ui/icons/ArrowUpward'
+import ArrowDownward from '@material-ui/icons/ArrowDownward'
 
 const Container = styled.div`
     height: 200px;
@@ -13,11 +15,36 @@ const Container = styled.div`
 `
 const PostList = styled.div`
     width: 400px;
-    padding: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-bottom: 1px solid;
+`
+const PostContainer = styled.div`
     border: 1px solid;
+    margin: 16px 0;
+`
+const Form = styled.form`
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+`
+const UserName = styled.label`
+    width: 100%;
+    border-bottom: 1px solid;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+const VotesContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+`
+const TextArea = styled.div`
+    text-align: center;
+    padding: 8px;
 `
 
 function FeedPage() {
@@ -54,7 +81,7 @@ function FeedPage() {
     }, [])
 
     const goToPost = () => {
-       
+
     }
 
     const goToLogin = () => {
@@ -78,26 +105,61 @@ function FeedPage() {
             })
     }
 
+    const votePost = (id, vote) => {
+        axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${id}/vote`,
+            { 'direction': vote },
+            { headers: { 'Authorization': localStorage.getItem('token') } }
+        ).then(res => {
+            console.log('Vote post: ', res.data)
+            verLista()
+        }).catch(err => {
+            console.log('Erro em vote post: ', err)
+        })
+    }
+
     return (
         <Container>
             <h2>Feed</h2>
-
-            {/* <button onClick={goToPost}>POST</button> */}
-            <form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit}>
                 <input name={'title'} value={form.title} onChange={handleInputChange} type={'text'} placeholder={'Escreva o título do post'} required />
-                <textarea name={'text'} value={form.text} onChange={handleInputChange} type={'text'} placeholder={'Escreva seu post'} required />
+                <textarea name={'text'} value={form.text} onChange={handleInputChange} type={'text'} placeholder={'Escreva seu post'} rows='5' required />
                 <button onClick={createPost}>POSTAR</button>
-            </form>
+            </Form>
             {
                 posts.map(post => {
-                    return (<PostList onClick={() => goToDetails(post.id)} key={post.id}>
-                        <p>{post.username}</p>
-                        <p>{post.text}</p>
-                        <div>
-                            <p>{post.votesCount}</p>
-                            <p>{post.commentsCount} comentários</p>
-                        </div>
-                    </PostList>)
+                    let votePositive, voteNegative, iconColorPositive, iconColorNegative
+
+                    if (post.userVoteDirection === 0) {
+                        votePositive = 1
+                        voteNegative = -1
+                    } else if (post.userVoteDirection === 1) {
+                        votePositive = 0
+                        voteNegative = -1
+                        iconColorPositive = 'secondary'
+                    } else {
+                        votePositive = 1
+                        voteNegative = 0
+                        iconColorNegative = 'secondary'
+                    }
+
+                    return (
+                        <PostContainer key={post.id}>
+                            <PostList onClick={() => goToDetails(post.id)}>
+                                <UserName>{post.username}</UserName>
+                                <TextArea>
+                                    <h4>{post.title}</h4>
+                                    <p>{post.text}</p>
+                                </TextArea>
+                            </PostList>
+                            <VotesContainer>
+                                <div>
+                                    <label onClick={() => votePost(post.id, votePositive)}><ArrowUpward color={iconColorPositive} /></label>
+                                    <label>{post.votesCount}</label>
+                                    <label onClick={() => votePost(post.id, voteNegative)}><ArrowDownward color={iconColorNegative} /></label>
+                                </div>
+                                <label>{post.commentsCount} comentários</label>
+                            </VotesContainer>
+                        </PostContainer>)
                 })
             }
 
