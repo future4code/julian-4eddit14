@@ -14,7 +14,7 @@ const Container = styled.div`
 function FeedPage() {
     const verLista = () => {
         Axios.get('https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts', 
-        {headers:{'auth': localStorage.getItem('token')}})
+        {headers:{'Authorization': localStorage.getItem('token')}})
         .then(Response => {console.log('Get Post:', Response.data)})
     }
 
