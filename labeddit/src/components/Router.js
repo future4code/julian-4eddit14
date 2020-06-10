@@ -10,7 +10,7 @@ function Router() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path='/post'>
+                <Route exact path='/post/:id'>
                     <PostPage />
                 </Route>
                 <Route exact path='/feed'>
