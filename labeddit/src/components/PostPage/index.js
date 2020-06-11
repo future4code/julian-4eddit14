@@ -1,66 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import styled from 'styled-components'
+import { Container, PostContainer, CommentsContainer, NewComment, CommentItem, UserName, VotesContainer, VotesCommentContainer, TextArea } from './StylePost'
 import axios from 'axios'
 import ArrowUpward from '@material-ui/icons/ArrowUpward'
 import ArrowDownward from '@material-ui/icons/ArrowDownward'
-
-const Container = styled.div`
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-`
-const PostContainer = styled.div`
-    width: 400px;
-    border: 1px solid;
-    display: flex;
-    flex-direction: column;
-`
-const CommentsContainer = styled.div`
-    padding: 8px;
-    width: 400px;
-`
-const NewComment = styled.div`
-    width: 400px;
-    border: 1px solid;
-    display: flex;
-    flex-direction: column;
-    margin: 16px;
-`
-const CommentItem = styled.div`
-    width: 400px;
-    border: 1px solid;
-    display: flex;
-    flex-direction: column;
-    margin: 16px 0;
-`
-const UserName = styled.label`
-    border-bottom: 1px solid;
-    padding: 8px;
-`
-const PostText = styled.label`
-    width: 100%;
-    padding: 8px;
-`
-const VotesContainer = styled.div`
-    padding: 8px;
-    border-top: 1px solid;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-`
-const VotesCommentContainer = styled.div`
-    padding: 8px;
-    border-top: 1px solid;
-    display: flex;
-    align-items: center;
-`
-const TextArea = styled.div`
-    text-align: center;
-    padding: 8px;
-`
 
 function PostPage() {
     const history = useHistory()

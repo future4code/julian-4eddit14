@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useForm } from './Hooks/useForm'
+import { useForm } from '../Hooks/useForm'
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components'
 import axios from 'axios'
@@ -26,17 +26,9 @@ function SignupPage() {
         username: ''
     })
 
-    const handleSubmit = e => {
+    const createSignup = (e) => {
         e.preventDefault()
-        createSignup()
-    }
 
-    const handleInputChange = e => {
-        const { value, name } = e.target
-        onChange(name, value)
-    }
-
-    const createSignup = () => {
         axios.post(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/signup`, form)
             .then(res => {
                 console.log(res.data)
@@ -56,10 +48,10 @@ function SignupPage() {
     return (
         <Container>
             <h2>Cadastro</h2>
-            <Form onSubmit={handleSubmit}>
-                <input value={form.username} name={'username'} onChange={handleInputChange} type={'text'} placeholder={'Nome do usuário'} required />
-                <input value={form.email} name={'email'} onChange={handleInputChange} type={'email'} placeholder={'Email'} required />
-                <input value={form.password} name={'password'} onChange={handleInputChange} type={'password'} placeholder={'Senha'} required />
+            <Form onSubmit={createSignup}>
+                <input value={form.username} name={'username'} onChange={onChange} type={'text'} placeholder={'Nome do usuário'} required />
+                <input value={form.email} name={'email'} onChange={onChange} type={'email'} placeholder={'Email'} required />
+                <input value={form.password} name={'password'} onChange={onChange} type={'password'} placeholder={'Senha'} required />
                 <button>CADASTRAR</button>
                 <button onClick={goToLogin}>VOLTAR</button>
             </Form>
