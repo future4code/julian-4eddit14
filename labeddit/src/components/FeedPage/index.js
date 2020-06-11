@@ -1,51 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useForm } from '../Hooks/useForm'
-import styled from 'styled-components';
+import { Container, PostList, PostContainer, Form, UserName, VotesContainer, TextArea } from './StyleFeed'
 import axios from 'axios'
 import ArrowUpward from '@material-ui/icons/ArrowUpward'
 import ArrowDownward from '@material-ui/icons/ArrowDownward'
-
-const Container = styled.div`
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-`
-const PostList = styled.div`
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-bottom: 1px solid;
-`
-const PostContainer = styled.div`
-    border: 1px solid;
-    margin: 16px 0;
-`
-const Form = styled.form`
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-`
-const UserName = styled.label`
-    width: 100%;
-    border-bottom: 1px solid;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
-const VotesContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    padding: 8px;
-`
-const TextArea = styled.div`
-    text-align: center;
-    padding: 8px;
-`
 
 function FeedPage() {
     const history = useHistory()
