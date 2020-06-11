@@ -1,51 +1,58 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components'
 import axios from 'axios'
+import { useForm } from "./Hooks/useForm";
+import { Typography, TextField, Button } from '@material-ui/core'
+import { LoginForm } from "./stylesLogin";
+
 
 const baseUrl = "https://us-central1-labenu-apis.cloudfunctions.net/labEddit"
 
-const Container = styled.div`
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-`
-
-const LoginPage = (props) => {
+const LoginPage = () => {
     const history = useHistory()
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const { form, onChange } = useForm({
+        email: '',
+        password: ''
+    })
 
-    const handleLogin = async () => {
+    const onSubmitLogin = async (event) => {
+        event.preventDefault()
         const body = {
-            email: email,
-            password: password,
+            email: form.email,
+            password: form.password
         }
-
-        try{
+        try {
             const response = await axios.post(`${baseUrl}/login`, body)
-
-            localStorage.setItem("token", response.data.token);
-            history.push("/feed")
-        }catch(e)  {
-            alert("Erro de Login: verifique o email e password.")
+            window.localStorage.setItem('token', response.data.token)
+            history.push('/feed')
+        }catch(error) {
+            window.alert("Erro de Login: verifique o email e password.")
         }
     }
 
     const goToSignup = () => {
         history.push('/signup')
     }
-
   return (
-    <Container>
-        <h2>Login</h2>
-        <input type={'email'} placeholder={'Email'} value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input type={'password'} placeholder={'Senha'} value={password} onChange={(e) => setPassword(e.target.value)}/>
-        <button onClick={handleLogin}>ENTRAR</button>
-        <button onClick={goToSignup}>CADASTRAR</button>
-    </Container>
+    <div>
+        <Typography variant="h1" align={'center'} gutterBottom>Login</Typography>
+        <LoginForm onSubmit={onSubmitLogin}>
+            <TextField 
+            label={'Email'} type={'email'} 
+            onChange={onChange} 
+            value={form['email']} name={'email'}
+            />
+
+            <TextField 
+            label={'Password'} type={'password'}
+            onChange={onChange} 
+            value={form['password']} name={'password'}
+            />
+
+            <Button variant={'contained'} color={'primary'} type={'submit'}>Entrar</Button>
+            <Button variant={'contained'} color={'primary'} type={'submit'} onClick={goToSignup}>Cadastrar</Button>
+        </LoginForm>
+    </div>
   );
 }
 
