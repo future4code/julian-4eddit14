@@ -9,7 +9,7 @@ export const useProtectedPage = () => {
         const token = window.localStorage.getItem('token')
 
         if(!token){
-            history.push('/login')
+            history.push('/')
         }
-    })
+    }, [])
 }
