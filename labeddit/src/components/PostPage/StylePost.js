@@ -17,9 +17,8 @@ export const CommentsContainer = styled.div`
     padding: 8px;
     width: 400px;
 `
-export const NewComment = styled.div`
+export const NewCommentContainer = styled.form`
     width: 400px;
-    border: 1px solid;
     display: flex;
     flex-direction: column;
     margin: 16px;
