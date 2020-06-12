@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { voteReducer, initialState } from '../Reducers/votes'
 import { PostList, PostContainer, UserName, VotesContainer, TextArea } from './StyleFeed'
 import axios from 'axios'
 import ArrowUpward from '@material-ui/icons/ArrowUpward'
@@ -42,7 +41,6 @@ function Posts(props) {
                     voteNegative = 0
                     iconColorNegative = 'secondary'
                 }
-                // aqui(post.userVoteDirection)
 
                 return (
                     <PostContainer key={post.id}>

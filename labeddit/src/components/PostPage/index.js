@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { voteReducer, initialState } from '../Reducers/votes'
 import { Container, CommentsContainer } from './StylePost'
 import axios from 'axios'
 import Comments from './Comments';
@@ -8,7 +7,6 @@ import Post from './Post';
 import NewComment from './NewComment';
 
 function PostPage() {
-    const [state, dispatch] = useReducer(voteReducer, initialState)
     const history = useHistory()
     const pathParams = useParams()
     const [post, setPost] = useState({})
@@ -44,7 +42,7 @@ function PostPage() {
             <Post post={post} getDetails={getDetails} />
             <NewComment post={post} getDetails={getDetails} />
             <CommentsContainer>
-                {post.comments !== undefined && (
+                {post.comments === undefined ? ('carregando...') : (
                     <Comments post={post} getDetails={getDetails} />
                 )}
             </CommentsContainer>

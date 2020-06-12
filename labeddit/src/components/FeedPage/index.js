@@ -9,7 +9,6 @@ function FeedPage() {
     const history = useHistory()
     const [posts, setPosts] = useState([])
 
-
     useEffect(() => {
 
         localStorage.getItem('token') === null && history.push('/')
@@ -27,7 +26,6 @@ function FeedPage() {
             { headers: { 'Authorization': localStorage.getItem('token') } })
             .then(response => {
                 setPosts(response.data.posts)
-                console.log('Get Post:', response.data.posts)
             })
             .catch(err => {
                 console.log(err)
@@ -39,7 +37,8 @@ function FeedPage() {
         <Container>
             <h2>Feed</h2>
             <NewPost verLista={verLista} />
-            <Posts postslist={posts} verLista={verLista} />
+            {posts.length === 0 ? ('carregando...') : (
+                <Posts postslist={posts} verLista={verLista} />)}
             <button onClick={goToLogin}>SAIR</button>
         </Container>
     );
