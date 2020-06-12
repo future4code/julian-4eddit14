@@ -1,22 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from '../Hooks/useForm'
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components'
+import { Container, Form } from './StyleSignup'
+import { Typography, TextField, Button } from '@material-ui/core'
 import axios from 'axios'
-
-const Container = styled.div`
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`
-const Form = styled.form`
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-`
 
 function SignupPage() {
     const history = useHistory()
@@ -31,12 +18,11 @@ function SignupPage() {
 
         axios.post(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/signup`, form)
             .then(res => {
-                console.log(res.data)
                 localStorage.setItem('token', res.data.token)
+                window.alert('Cadastro realizado com sucesso')
                 history.push('/feed')
             })
             .catch(err => {
-                console.log(err)
                 window.alert('Cadastro falhou')
             })
     }
@@ -47,15 +33,41 @@ function SignupPage() {
 
     return (
         <Container>
-            <h2>Cadastro</h2>
+            <Typography variant={'h3'}>Cadastro</Typography>
             <Form onSubmit={createSignup}>
-                <input value={form.username} name={'username'} onChange={onChange} type={'text'} placeholder={'Nome do usuário'} required />
-                <input value={form.email} name={'email'} onChange={onChange} type={'email'} placeholder={'Email'} required />
-                <input value={form.password} name={'password'} onChange={onChange} type={'password'} placeholder={'Senha'} required />
-                <button>CADASTRAR</button>
-                <button onClick={goToLogin}>VOLTAR</button>
+                <TextField
+                    label={'Nome do usuário'} type={'text'}
+                    value={form.username}
+                    name={'username'}
+                    onChange={onChange}
+                    placeholder={'Nome do usuário'}
+                    required
+                />
+                <TextField
+                    label={'Email'} type={'email'}
+                    value={form.email}
+                    name={'email'}
+                    onChange={onChange}
+                    placeholder={'Email'}
+                    required
+                />
+                <TextField
+                    label={'Senha'} type={'password'}
+                    value={form.password}
+                    name={'password'}
+                    onChange={onChange}
+                    placeholder={'Senha'}
+                    required
+                />
+                <Button
+                    variant={'contained'}
+                    color={'primary'}
+                    type={'submit'}>
+                    CADASTRAR
+                </Button>
             </Form>
-        </Container>
+            <Button color={'primary'} onClick={goToLogin}>VOLTAR</Button>
+        </Container >
     );
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from '../Hooks/useForm'
 import { Form } from './StyleFeed'
 import axios from 'axios'
+import { Typography, TextField, Button } from '@material-ui/core'
 
 function NewPost(props) {
     const { form, onChange, resetValues } = useForm({
@@ -26,24 +27,27 @@ function NewPost(props) {
 
     return (
         <Form onSubmit={createPost}>
-            <input
+            <TextField
                 name={'title'}
                 value={form.title}
                 onChange={onChange}
                 type={'text'}
                 placeholder={'Escreva o título do post'}
+                variant={'outlined'}
                 required
             />
-            <textarea
+            <TextField
                 name={'text'}
                 value={form.text}
                 onChange={onChange}
                 type={'text'}
                 placeholder={'Escreva seu post'}
-                rows='5'
+                variant={'outlined'}
+                multiline
+                rows={'4'}
                 required
             />
-            <button>POSTAR</button>
+            <Button variant={'contained'} color={'primary'} type={'submit'}>POSTAR</Button>
         </Form>
     )
 }

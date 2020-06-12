@@ -4,6 +4,7 @@ import { Container } from './StyleFeed'
 import axios from 'axios'
 import Posts from './Posts';
 import NewPost from './NewPost';
+import { Typography, TextField, Button } from '@material-ui/core'
 
 function FeedPage() {
     const history = useHistory()
@@ -35,11 +36,11 @@ function FeedPage() {
 
     return (
         <Container>
-            <h2>Feed</h2>
+            <Typography variant={'h3'}>Feed</Typography>
             <NewPost verLista={verLista} />
             {posts.length === 0 ? ('carregando...') : (
                 <Posts postslist={posts} verLista={verLista} />)}
-            <button onClick={goToLogin}>SAIR</button>
+            <Button variant={'outlined'} color={'primary'} onClick={goToLogin}>LOGOUT</Button>
         </Container>
     );
 }
