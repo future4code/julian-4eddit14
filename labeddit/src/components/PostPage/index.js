@@ -1,30 +1,26 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { voteReducer, initialState } from '../Reducers/votes'
 import { Container, CommentsContainer } from './StylePost'
 import axios from 'axios'
 import Comments from './Comments';
 import Post from './Post';
 import NewComment from './NewComment';
+import { Button } from '@material-ui/core';
+import { useProtectedPage } from '../Hooks/useProtectedPage';
 
 function PostPage() {
     const [state, dispatch] = useReducer(voteReducer, initialState)
-    const history = useHistory()
+    useProtectedPage()
     const pathParams = useParams()
     const [post, setPost] = useState({})
 
     useEffect(() => {
-        localStorage.getItem('token') === null && history.push('/')
         getDetails()
     }, [])
     
-    const goToPost = () => {
-        history.push('/feed')
-    }
-
     const goToLogin = () => {
         localStorage.clear()
-        history.push('/')
     }
 
     const getDetails = () => {
@@ -48,8 +44,13 @@ function PostPage() {
                     <Comments post={post} getDetails={getDetails} />
                 )}
             </CommentsContainer>
-            <button onClick={goToPost}>VOLTAR PARA FEED</button>
+            <Link to={'/feed'}>
+            <Button>VOLTAR PARA FEED</Button>
+            </Link>
+
+            <Link to={'/'}>
             <button onClick={goToLogin}>SAIR</button>
+            </Link >
         </Container>
     );
 }
