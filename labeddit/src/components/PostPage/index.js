@@ -5,8 +5,8 @@ import axios from 'axios'
 import Comments from './Comments';
 import Post from './Post';
 import NewComment from './NewComment';
-import { Button } from '@material-ui/core';
 import { useProtectedPage } from '../Hooks/useProtectedPage';
+import { Typography, TextField, Button } from '@material-ui/core'
 
 function PostPage() {
     useProtectedPage()
@@ -16,7 +16,7 @@ function PostPage() {
     useEffect(() => {
         getDetails()
     }, [])
-    
+
     const goToLogin = () => {
         localStorage.clear()
     }
@@ -34,7 +34,6 @@ function PostPage() {
 
     return (
         <Container>
-            <h2>Post</h2>
             <Post post={post} getDetails={getDetails} />
             <NewComment post={post} getDetails={getDetails} />
             <CommentsContainer>
@@ -43,11 +42,15 @@ function PostPage() {
                 )}
             </CommentsContainer>
             <Link to={'/feed'}>
-            <Button>VOLTAR PARA FEED</Button>
+                <Button>VOLTAR PARA FEED</Button>
             </Link>
-
             <Link to={'/'}>
-            <button onClick={goToLogin}>SAIR</button>
+                <Button
+                    variant={'outlined'}
+                    color={'primary'}
+                    onClick={goToLogin}>
+                    LOGOUT
+                </Button>
             </Link >
         </Container>
     );

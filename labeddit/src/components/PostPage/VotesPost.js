@@ -1,9 +1,7 @@
 import React from 'react';
 import { vote } from '../Reducers/votes'
-import { VotesContainer } from './StylePost'
+import { VotesContainer, ArrowUp, ArrowDown } from './StylePost'
 import axios from 'axios'
-import ArrowUpward from '@material-ui/icons/ArrowUpward'
-import ArrowDownward from '@material-ui/icons/ArrowDownward'
 
 function VotesPost(props) {
     // const { votePositive, voteNegative, iconColorPositive, iconColorNegative } = vote()
@@ -41,11 +39,11 @@ function VotesPost(props) {
         <VotesContainer>
             <div>
                 <label onClick={() => votePost(votePositive)}>
-                    <ArrowUpward color={iconColorPositive} />
+                    <ArrowUp color={iconColorPositive} />
                 </label>
                 <label>{props.post.votesCount}</label>
                 <label onClick={() => votePost(voteNegative)}>
-                    <ArrowDownward color={iconColorNegative} />
+                    <ArrowDown color={iconColorNegative} />
                 </label>
             </div>
             <label>{props.post.commentsCount} comentários</label>

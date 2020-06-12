@@ -21,12 +21,13 @@ const LoginPage = () => {
             email: form.email,
             password: form.password
         }
-        try{const response = await axios.post(`${baseUrl}/login`, body)
-        localStorage.setItem('token', response.data.token)
-        history.push('/feed')
-        }catch(error){
+        try {
+            const response = await axios.post(`${baseUrl}/login`, body)
+            localStorage.setItem('token', response.data.token)
+            history.push('/feed')
+        } catch (error) {
             window.alert(error)
-        }    
+        }
     }
 
     const goToSignup = () => {
@@ -34,18 +35,20 @@ const LoginPage = () => {
     }
     return (
         <div>
-            <Typography variant="h1" align={'center'} gutterBottom>Login</Typography>
+            <Typography variant="h3" align={'center'} gutterBottom>Login</Typography>
             <LoginForm onSubmit={onSubmitLogin}>
                 <TextField
                     label={'Email'} type={'email'}
                     onChange={onChange}
                     value={form['email']} name={'email'}
+                    required
                 />
 
                 <TextField
                     label={'Password'} type={'password'}
                     onChange={onChange}
                     value={form['password']} name={'password'}
+                    required
                 />
 
                 <Button variant={'contained'} color={'primary'} type={'submit'}>Entrar</Button>

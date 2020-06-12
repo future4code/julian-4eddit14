@@ -1,9 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { PostList, PostContainer, UserName, VotesContainer, TextArea } from './StyleFeed'
+import { PostList, PostContainer, UserName, VotesContainer, TextArea, ArrowUp, ArrowDown, LabelComments } from './StyleFeed'
 import axios from 'axios'
-import ArrowUpward from '@material-ui/icons/ArrowUpward'
-import ArrowDownward from '@material-ui/icons/ArrowDownward'
 
 function Posts(props) {
     const history = useHistory()
@@ -54,14 +52,16 @@ function Posts(props) {
                         <VotesContainer>
                             <div>
                                 <label onClick={() => votePost(post.id, votePositive)}>
-                                    <ArrowUpward color={iconColorPositive} />
+                                    <ArrowUp color={iconColorPositive} />
                                 </label>
                                 <label>{post.votesCount}</label>
                                 <label onClick={() => votePost(post.id, voteNegative)}>
-                                    <ArrowDownward color={iconColorNegative} />
+                                    <ArrowDown color={iconColorNegative} />
                                 </label>
                             </div>
-                            <label>{post.commentsCount} comentários</label>
+                            <LabelComments onClick={() => goToDetails(post.id)}>
+                                {post.commentsCount} comentários
+                            </LabelComments>
                         </VotesContainer>
                     </PostContainer>)
             })}

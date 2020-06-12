@@ -1,14 +1,33 @@
 import styled from 'styled-components';
+import ArrowUpward from '@material-ui/icons/ArrowUpward'
+import ArrowDownward from '@material-ui/icons/ArrowDownward'
 
+export const ArrowUp = styled(ArrowUpward)`
+    cursor: pointer;
+    :hover {
+        opacity: 0.3;
+    }
+`
+export const ArrowDown = styled(ArrowDownward)`
+    cursor: pointer;
+    :hover {
+        opacity: 0.3;
+    }
+`
+export const LabelComments = styled.label`
+    cursor: pointer;
+`
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     flex-grow: 1;
+    padding: 8px;
 `
 export const PostList = styled.div`
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,13 +38,15 @@ export const PostContainer = styled.div`
     border-radius: 5px;
     margin: 16px 0;
     background-color: white;
+    cursor: pointer;
 
     :hover {
         border: 1px solid black;
     }
 `
 export const Form = styled.form`
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     border-radius: 5px;
@@ -38,6 +59,7 @@ export const UserName = styled.label`
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 8px 0;
 `
 export const VotesContainer = styled.div`
     display: flex;

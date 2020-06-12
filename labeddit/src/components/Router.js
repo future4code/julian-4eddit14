@@ -22,6 +22,9 @@ function Router() {
                 <Route exact path='/'>
                     <LoginPage />
                 </Route>
+                <Route default path='/'>
+                    Opa! 404!
+                </Route>
             </Switch>
         </BrowserRouter>
     )

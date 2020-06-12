@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import { voteReducer, initialState } from '../Reducers/votes'
-import { CommentItem, UserName, VotesCommentContainer } from './StylePost'
+import { CommentItem, UserName, VotesCommentContainer, ArrowUp, ArrowDown } from './StylePost'
 import axios from 'axios'
 import ArrowUpward from '@material-ui/icons/ArrowUpward'
 import ArrowDownward from '@material-ui/icons/ArrowDownward'
@@ -41,11 +41,11 @@ function Comments(props) {
                     <p>{comment.text}</p>
                     <VotesCommentContainer>
                         <label onClick={() => voteComment(comment.id, votePositiveComment)}>
-                            <ArrowUpward color={iconColorPositiveComment} />
+                            <ArrowUp color={iconColorPositiveComment} />
                         </label>
                         <label>{comment.votesCount}</label>
                         <label onClick={() => voteComment(comment.id, voteNegativeComment)}>
-                            <ArrowDownward color={iconColorNegativeComment} />
+                            <ArrowDown color={iconColorNegativeComment} />
                         </label>
                     </VotesCommentContainer>
                 </CommentItem>)
