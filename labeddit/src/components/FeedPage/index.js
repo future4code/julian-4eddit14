@@ -3,14 +3,13 @@ import { Container } from './StyleFeed'
 import axios from 'axios'
 import Posts from './Posts';
 import NewPost from './NewPost';
+import { Typography, TextField, Button } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { Button } from '@material-ui/core';
 import { useProtectedPage } from '../Hooks/useProtectedPage';
 
 function FeedPage() {
     const [posts, setPosts] = useState([])
     useProtectedPage ()
-
 
     useEffect(() => {
         verLista()
@@ -25,7 +24,6 @@ function FeedPage() {
             { headers: { 'Authorization': localStorage.getItem('token') } })
             .then(response => {
                 setPosts(response.data.posts)
-                console.log('Get Post:', response.data.posts)
             })
             .catch(err => {
                 console.log(err)
@@ -35,11 +33,12 @@ function FeedPage() {
 
     return (
         <Container>
-            <h2>Feed</h2>
+            <Typography variant={'h3'}>Feed</Typography>
             <NewPost verLista={verLista} />
-            <Posts postslist={posts} verLista={verLista} />
+            {posts.length === 0 ? ('carregando...') : (
+                <Posts postslist={posts} verLista={verLista} />)}
             <Link to={'/'}>
-                <Button onclick={goToLogin}>SAIR</Button>
+                <Button variant={'outlined'} color={'primary'} onClick={goToLogin}>LOGOUT</Button>
             </Link>
         </Container>
     );

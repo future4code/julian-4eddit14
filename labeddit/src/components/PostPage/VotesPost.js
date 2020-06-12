@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useReducer } from 'react';
-import { voteReducer, initialState } from '../Reducers/votes'
+import React from 'react';
+import { vote } from '../Reducers/votes'
 import { VotesContainer } from './StylePost'
 import axios from 'axios'
 import ArrowUpward from '@material-ui/icons/ArrowUpward'
 import ArrowDownward from '@material-ui/icons/ArrowDownward'
 
 function VotesPost(props) {
+    // const { votePositive, voteNegative, iconColorPositive, iconColorNegative } = vote()
     let votePositive, voteNegative, iconColorPositive, iconColorNegative
 
     if (props.post.userVoteDirection === 0) {
@@ -31,6 +32,10 @@ function VotesPost(props) {
             window.alert('Curtir post falhou.')
         })
     }
+
+    // useEffect(() => {
+    //     vote(props.post.userVoteDirection)
+    // }, [props.post.userVoteDirection])
 
     return (<div>
         <VotesContainer>

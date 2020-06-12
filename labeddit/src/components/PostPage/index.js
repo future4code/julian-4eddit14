@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useReducer } from 'react';
+import { useHistory, Link, useParams } from 'react-router-dom';
 import { Link, useParams } from 'react-router-dom';
 import { voteReducer, initialState } from '../Reducers/votes'
 import { Container, CommentsContainer } from './StylePost'
@@ -10,6 +11,7 @@ import { Button } from '@material-ui/core';
 import { useProtectedPage } from '../Hooks/useProtectedPage';
 
 function PostPage() {
+    const history = useHistory()
     const [state, dispatch] = useReducer(voteReducer, initialState)
     useProtectedPage()
     const pathParams = useParams()
@@ -40,7 +42,7 @@ function PostPage() {
             <Post post={post} getDetails={getDetails} />
             <NewComment post={post} getDetails={getDetails} />
             <CommentsContainer>
-                {post.comments !== undefined && (
+                {post.comments === undefined ? ('carregando...') : (
                     <Comments post={post} getDetails={getDetails} />
                 )}
             </CommentsContainer>
