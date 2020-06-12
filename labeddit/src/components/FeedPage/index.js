@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Container } from './StyleFeed'
 import axios from 'axios'
 import Posts from './Posts';
 import NewPost from './NewPost';
 import { Typography, TextField, Button } from '@material-ui/core'
+import { Link } from 'react-router-dom'
+import { useProtectedPage } from '../Hooks/useProtectedPage';
 
 function FeedPage() {
-    const history = useHistory()
     const [posts, setPosts] = useState([])
+    useProtectedPage ()
 
     useEffect(() => {
-
-        localStorage.getItem('token') === null && history.push('/')
         verLista()
     }, [])
 
     const goToLogin = () => {
-
         localStorage.clear()
-        history.push('/')
     }
 
     const verLista = () => {
@@ -40,7 +37,9 @@ function FeedPage() {
             <NewPost verLista={verLista} />
             {posts.length === 0 ? ('carregando...') : (
                 <Posts postslist={posts} verLista={verLista} />)}
-            <Button variant={'outlined'} color={'primary'} onClick={goToLogin}>LOGOUT</Button>
+            <Link to={'/'}>
+                <Button variant={'outlined'} color={'primary'} onClick={goToLogin}>LOGOUT</Button>
+            </Link>
         </Container>
     );
 }
