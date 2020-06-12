@@ -21,13 +21,12 @@ const LoginPage = () => {
             email: form.email,
             password: form.password
         }
-        try {
-            const response = await axios.post(`${baseUrl}/login`, body)
-            window.localStorage.setItem('token', response.data.token)
-            history.push('/feed')
-        } catch (error) {
-            window.alert("Erro de Login: verifique o email e password.")
-        }
+        try{const response = await axios.post(`${baseUrl}/login`, body)
+        localStorage.setItem('token', response.data.token)
+        history.push('/feed')
+        }catch(error){
+            window.alert(error)
+        }    
     }
 
     const goToSignup = () => {
