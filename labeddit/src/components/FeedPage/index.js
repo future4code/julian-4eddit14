@@ -9,7 +9,7 @@ import { useProtectedPage } from '../Hooks/useProtectedPage';
 
 function FeedPage() {
     const [posts, setPosts] = useState([])
-    useProtectedPage ()
+    useProtectedPage()
 
     useEffect(() => {
         verLista()
@@ -38,7 +38,12 @@ function FeedPage() {
             {posts.length === 0 ? ('carregando...') : (
                 <Posts postslist={posts} verLista={verLista} />)}
             <Link to={'/'}>
-                <Button variant={'outlined'} color={'primary'} onClick={goToLogin}>LOGOUT</Button>
+                <Button
+                    variant={'outlined'}
+                    color={'primary'}
+                    onClick={goToLogin}>
+                    LOGOUT
+                </Button>
             </Link>
         </Container>
     );

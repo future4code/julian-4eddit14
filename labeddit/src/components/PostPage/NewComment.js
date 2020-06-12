@@ -2,6 +2,7 @@ import React from 'react';
 import { NewCommentContainer } from './StylePost'
 import axios from 'axios'
 import { useForm } from '../Hooks/useForm'
+import { Typography, TextField, Button } from '@material-ui/core'
 
 function NewComment(props) {
     const { form, onChange, resetValues } = useForm({ text: '' })
@@ -22,8 +23,15 @@ function NewComment(props) {
 
     return (
         <NewCommentContainer onSubmit={createComment}>
-            <textarea name={'text'} value={form.text} onChange={onChange} placeholder={'Escreva seu comentário'} rows={'4'} required />
-            <button onClick={createComment}>COMENTAR</button>
+            <TextField
+                name={'text'} value={form.text}
+                onChange={onChange}
+                placeholder={'Escreva seu comentário'}
+                variant={'outlined'}
+                multiline rows={'4'}
+                equired
+            />
+            <Button onClick={createComment} variant={'contained'} color={'primary'}>COMENTAR</Button>
         </NewCommentContainer>
     )
 }
