@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import { useHistory, Link, useParams } from 'react-router-dom';
 import { Link, useParams } from 'react-router-dom';
-import { voteReducer, initialState } from '../Reducers/votes'
 import { Container, CommentsContainer } from './StylePost'
 import axios from 'axios'
 import Comments from './Comments';
@@ -11,8 +9,6 @@ import { Button } from '@material-ui/core';
 import { useProtectedPage } from '../Hooks/useProtectedPage';
 
 function PostPage() {
-    const history = useHistory()
-    const [state, dispatch] = useReducer(voteReducer, initialState)
     useProtectedPage()
     const pathParams = useParams()
     const [post, setPost] = useState({})
